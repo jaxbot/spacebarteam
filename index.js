@@ -38,6 +38,14 @@ function sendNewInstruction(socket) {
   var instructionTxt = "";
   var available = levelControls.slice(0, players * 4);
   var instruction = available[Math.floor(Math.random() * available.length)];
+  for (var i = 0; i < pendingInstructions.length; i++) {
+    if (pendingInstructions[i].id == instruction.id) {
+      sendNewInstruction(socket);
+      return;
+    }
+  }
+
+  instruction.socketID = socket.id;
 
   switch (instruction.type) {
     case "button":
@@ -69,8 +77,9 @@ io.on("connection", function(socket) {
 	if (correctInstructions > 10) {
 		initGame();
 	} else {
+		var prevSocket = io.sockets.connected[pendingInstructions[i].socketID];
 		pendingInstructions.splice(i, 1);
-		sendNewInstruction(socket);
+		sendNewInstruction(prevSocket);
 	}
 	break;
       }

@@ -4,7 +4,8 @@ app.controller("gameCtrl", ["$scope", function($scope) {
 
   var socket = io("http://localhost:8009/");
   socket.on('instruction', function(data) {
-    console.log(data);
+    $scope.instruction = data;
+    $scope.$apply();
   });
 
   socket.on('level', function(data) {
@@ -18,5 +19,9 @@ app.controller("gameCtrl", ["$scope", function($scope) {
 
   $scope.change = function(control_number, value) {
     socket.emit("click", { control_number: control_number, value: value });
+  }
+
+  $scope.startNewGame = function() {
+    socket.emit("newgame");
   }
 }]);

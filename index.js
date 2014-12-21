@@ -45,7 +45,7 @@ function sendNewInstruction(socket) {
       instructionTxt = instruction.value + " " + instruction.title;
     break;
     case "toggle":
-      instruction.desiredValue = rand(instruction.options.length);
+      instruction.desiredValue = rand(instruction.options.length-1);
       instructionTxt = "Set " + instruction.title + " to " + instruction.options[instruction.desiredValue];
     break;
   }

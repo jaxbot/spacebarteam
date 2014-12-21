@@ -1,0 +1,58 @@
+body {
+	font-size: 30px;
+	background: #333;
+	color: #fff;
+}
+
+.control {
+	display: inline-block;
+	vertical-align: top;
+	padding: 20px;
+	text-align: center;
+}
+
+.control input[type=button] {
+	display: block;
+	font-size: 40px;
+	position: relative;
+	margin: auto;
+	background: #dd1111;
+	color: #fff;
+	border: solid 1px #aa1111;
+}
+
+.control .toggle {
+	text-align: left;
+}
+
+.controls {
+	background: #999;
+	color: #000;
+}
+
+.flash {
+	-webkit-animation: flash 1s;
+}
+
+@-webkit-keyframes flash {
+	0% {
+		opacity: 0.2;
+		color: #000;
+	}
+	15% {
+		opacity: 0.9;
+		color: #f00;
+	}
+	30% {
+		opacity: 0.2;
+		color: #ff0;
+	}
+	45% {
+		opacity: 0.9;
+		color: #f00;
+	}
+	100% {
+		opacity: 1;
+		color: inherit;
+	}
+}

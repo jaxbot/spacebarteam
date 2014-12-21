@@ -5,6 +5,11 @@ app.controller("gameCtrl", ["$scope", function($scope) {
   var socket = io("http://localhost:8009/");
   socket.on('instruction', function(data) {
     $scope.instruction = data;
+
+    // Force animation
+    $scope.newInstruction = false;
+    $scope.$apply();
+    $scope.newInstruction = true;
     $scope.$apply();
   });
 

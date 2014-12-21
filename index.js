@@ -65,8 +65,13 @@ io.on("connection", function(socket) {
     for (var i = 0; i < pendingInstructions.length; i++) {
       if (pendingInstructions[i].id == data.control_number && pendingInstructions[i].desiredValue == data.value) {
 	io.emit("correct", "");
-	pendingInstructions.splice(i, 1);
-	sendNewInstruction(socket);
+	correctInstructions++;
+	if (correctInstructions > 10) {
+		initGame();
+	} else {
+		pendingInstructions.splice(i, 1);
+		sendNewInstruction(socket);
+	}
 	break;
       }
     }

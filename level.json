@@ -1,0 +1,10 @@
+[
+  {
+    "type": "toggle",
+    "title": "Fuzz schedule",
+    "options": [
+      "never",
+      "every day"
+    ]
+  }
+]

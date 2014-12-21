@@ -1,0 +1,12 @@
+<script src="http://localhost:8009/socket.io/socket.io.js"></script>
+<script>
+  var socket = io("http://localhost:8009/");
+  socket.on('instruction', function(data) {
+	  console.log(data);
+  });
+  socket.on('level', function(data) {
+	  console.log(data);
+  });
+</script>
+<h1>yo</h1>
+

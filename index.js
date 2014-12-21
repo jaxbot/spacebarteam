@@ -20,7 +20,7 @@ setInterval(function() {
     i++;
   }
   io.emit("level", levelControls);
-}, 5000);
+}, 15000);
 
 
 function getInstructions() {

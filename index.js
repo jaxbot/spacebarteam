@@ -38,9 +38,18 @@ function sendNewInstruction(socket) {
   var instructionTxt = "";
   var available = levelControls.slice(0, players * 4);
   var instruction = available[Math.floor(Math.random() * available.length)];
-  instruction.desiredValue = 1;
 
-  instructionTxt = instruction.value + " " + instruction.title;
+  switch (instruction.type) {
+    case "button":
+      instruction.desiredValue = 1;
+      instructionTxt = instruction.value + " " + instruction.title;
+    break;
+    case "toggle":
+      instruction.desiredValue = rand(instruction.options.length);
+      instructionTxt = "Set " + instruction.title + " to " + instruction.options[instruction.desiredValue];
+    break;
+  }
+
   socket.emit("instruction", instructionTxt);
   pendingInstructions.push(instruction);
 }

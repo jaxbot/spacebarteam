@@ -1,5 +1,5 @@
 var io = require('socket.io')(8009);
-var possibleControls = require('./level');
+var possibleControls = require('./controls');
 
 var correctInstructions;
 var level;

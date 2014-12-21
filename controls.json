@@ -1,0 +1,45 @@
+[
+  {
+    "type": "toggle",
+    "title": "Fuzz schedule",
+    "options": [
+      "never",
+      "every day"
+    ]
+  },
+  {
+    "type": "button",
+    "title": "It",
+    "value": "Bop"
+  },
+  {
+    "type": "button",
+    "title": "It",
+    "value": "Twist"
+  },
+  {
+    "type": "button",
+    "title": "Your parents",
+    "value": "Kill"
+  },
+  {
+    "type": "button",
+    "title": "Production",
+    "value": "Deploy to"
+  },
+  {
+    "type": "button",
+    "title": "Instructions",
+    "value": "Read"
+  },
+  {
+    "type": "button",
+    "title": "Yourself",
+    "value": "Calm"
+  },
+  {
+    "type": "button",
+    "title": "Day",
+    "value": "To"
+  }
+]

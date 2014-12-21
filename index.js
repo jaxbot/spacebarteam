@@ -1,13 +1,14 @@
 var io = require('socket.io')(8009);
+var possibleControls = require('./level');
 
 var correctInstructions;
 var level;
-var levelControls = require('./level');
+var levelControls;
 
 function initGame() {
   correctInstructions = 0;
   level = 0;
-  console.log(io);
+  levelControls = possibleControls;
 }
 
 initGame();
@@ -22,6 +23,15 @@ setInterval(function() {
   io.emit("level", levelControls);
 }, 15000);
 
+io.on("connection", function(socket) {
+  io.emit("level", levelControls);
+  socket.on("click", function(data) {
+    console.log(data);
+    if (levelControls[data.control_number].desiredValue == data.value) {
+      io.emit("correct", "");
+    }
+  });
+});
 
 function getInstructions() {
   for (var i = 0; i < levelControls.length; i++) {

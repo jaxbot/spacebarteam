@@ -11,4 +11,12 @@ app.controller("gameCtrl", ["$scope", function($scope) {
     $scope.level = data;
     $scope.$apply();
   });
+
+  socket.on('correct', function(data) {
+    console.log("Yep");
+  });
+
+  $scope.change = function(control_number, value) {
+    socket.emit("click", { control_number: control_number, value: value });
+  }
 }]);

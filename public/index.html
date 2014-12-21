@@ -11,7 +11,7 @@
 	<div ng-switch-if="'toggle'" class="toggle">
 	  <span class="title">{{ control.title }}</span>
 	  <div ng-repeat="option in control.options">
-		<input type="radio" id="control{{$parent.$index}}{{$index}}" value="{{$index}}" name="control{{$parent.$index}}">
+		<input type="radio" id="control{{$parent.$index}}{{$index}}" value="{{$index}}" name="control{{$parent.$index}}" ng-click="change($parent.$index, $index)">
 		<label for="control{{$parent.$index}}{{$index}}">{{ option }}</label>
 	  </div>
 	</div>

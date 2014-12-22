@@ -1,7 +1,7 @@
 var app = angular.module("space", []);
 app.controller("gameCtrl", ["$scope", function($scope) {
   $scope.foo = "bar";
-  $scope.splash = false;
+  $scope.screen = "instructions";
 
   var socket = io("http://localhost:8009/");
   socket.on('instruction', function(data) {
@@ -24,7 +24,14 @@ app.controller("gameCtrl", ["$scope", function($scope) {
   });
 
   socket.on('nextLevel', function(data) {
-    $scope.splash = true;
+    $scope.screen = "splash";
+    $scope.newInstruction = "";
+    $scope.$apply();
+  });
+
+  socket.on('lose', function(data) {
+    $scope.screen = "lose";
+    $scope.newInstruction = "";
     $scope.$apply();
   });
 
@@ -34,10 +41,11 @@ app.controller("gameCtrl", ["$scope", function($scope) {
 
   $scope.startNewGame = function() {
     socket.emit("newgame");
+    $scope.screen = "instructions";
   }
 
   $scope.nextLevel = function() {
     socket.emit("nextLevel");
-    $scope.splash = false;
+    $scope.screen = "instructions";
   }
 }]);

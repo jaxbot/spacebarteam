@@ -13,8 +13,8 @@
   {{ instruction }}
 </div>
 <div class="controls">
-  <div ng-switch="splash">
-    <div ng-switch-when="false" class="control" ng-repeat="control in level">
+  <div ng-switch="screen">
+    <div ng-switch-when="instructions" class="control" ng-repeat="control in level">
       <form ng-switch="control.type">
         <div ng-switch-when="toggle" class="toggle">
           <span class="title">{{ control.title }}</span>
@@ -29,8 +29,11 @@
         </div>
       </form>
     </div>
-    <div ng-switch-when="true">
+    <div ng-switch-when="splash">
       <input type="button" value="Next Level" ng-click="nextLevel()">
+    </div>
+    <div ng-switch-when="lose">
+      You have run out of time!
     </div>
   </div>
 </div>

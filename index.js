@@ -5,9 +5,12 @@ var correctInstructions;
 var level;
 var levelControls;
 var players;
+var timeout;
 var pendingInstructions = [];
 
 function initGame() {
+  clearTimeout(timeout);
+  timeout = setTimeout(lose, 30000);
   correctInstructions = 0;
   level = 0;
   levelControls = shuffleArray(possibleControls);
@@ -75,6 +78,7 @@ io.on("connection", function(socket) {
         io.emit("correct", "");
         correctInstructions++;
         if (correctInstructions > 10) {
+          clearTimeout(timeout);
           io.emit("nextLevel", "");
         } else {
           var prevSocket = io.sockets.connected[pendingInstructions[i].socketID];
@@ -111,6 +115,10 @@ function getInstructions() {
     levelControls[i].desiredValue = value;
   }
   return levelControls;
+}
+
+function lose() {
+  io.emit("lose", "");
 }
 
 // Fisher-Yates shuffle

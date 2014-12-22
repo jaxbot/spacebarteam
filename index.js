@@ -72,20 +72,23 @@ io.on("connection", function(socket) {
     console.log(data);
     for (var i = 0; i < pendingInstructions.length; i++) {
       if (pendingInstructions[i].id == data.control_number && pendingInstructions[i].desiredValue == data.value) {
-	io.emit("correct", "");
-	correctInstructions++;
-	if (correctInstructions > 10) {
-		initGame();
-	} else {
-		var prevSocket = io.sockets.connected[pendingInstructions[i].socketID];
-		pendingInstructions.splice(i, 1);
-		sendNewInstruction(prevSocket);
-	}
-	break;
+        io.emit("correct", "");
+        correctInstructions++;
+        if (correctInstructions > 10) {
+          io.emit("nextLevel", "");
+        } else {
+          var prevSocket = io.sockets.connected[pendingInstructions[i].socketID];
+          pendingInstructions.splice(i, 1);
+          sendNewInstruction(prevSocket);
+        }
+        break;
       }
     }
   });
   socket.on("newgame", function() {
+    initGame();
+  });
+  socket.on("nextLevel", function() {
     initGame();
   });
   socket.on("disconnect", function() {
@@ -100,10 +103,10 @@ function getInstructions() {
     switch (levelControls[i].type)
     {
       case "toggle":
-	value = rand(1);
-	break;
+        value = rand(1);
+        break;
       default:
-	value = 1;
+        value = 1;
     }
     levelControls[i].desiredValue = value;
   }
@@ -112,13 +115,13 @@ function getInstructions() {
 
 // Fisher-Yates shuffle
 function shuffleArray(array) {
-	for (var i = 1; i < array.length; i++) {
-		var j = Math.floor(Math.random() * array.length);
-		var tmp = array[i];
-		array[i] = array[j];
-		array[j] = tmp;
-	}
-	return array;
+  for (var i = 1; i < array.length; i++) {
+    var j = Math.floor(Math.random() * array.length);
+    var tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+  return array;
 }
 
 function rand(i) {

@@ -4,6 +4,12 @@ app.controller("gameCtrl", ["$scope", function($scope) {
   $scope.screen = "instructions";
 
   var socket = io("http://localhost:8009/");
+
+  socket.on('count', function(data) {
+    $scope.timeLeft = data;
+    $scope.$apply();
+  });
+
   socket.on('instruction', function(data) {
     $scope.instruction = data;
 

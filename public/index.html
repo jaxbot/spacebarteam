@@ -1,44 +1,54 @@
 <!doctype html>
 <html>
-<head>
-<title>Space!!!</title>
-<meta name="viewport" content="width=device-width, user-scalable=no">
-<link rel="stylesheet" href="style.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.min.js"></script>
-<script src="http://localhost:8009/socket.io/socket.io.js"></script>
-<script src="game.js"></script>
-</head>
-<body ng-app="space" ng-controller="gameCtrl">
-<div class="instruction" ng-class="{ flash: newInstruction }" ng-if="newInstruction">
-  {{ instruction }}
-</div>
-<div class="controls">
-  <div ng-switch="screen">
-    <div ng-switch-when="instructions" class="control" ng-repeat="control in level">
-      <form ng-switch="control.type">
-        <div ng-switch-when="toggle" class="toggle">
-          <span class="title">{{ control.title }}</span>
-          <div ng-repeat="option in control.options">
-            <input type="radio" id="control{{$parent.$index}}{{$index}}" value="{{$index}}" name="control{{$parent.$index}}" ng-click="change(control.id, $index)">
-            <label for="control{{$parent.$index}}{{$index}}">{{ option }}</label>
+  <head>
+    <title>Spacebar Team</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.min.js"></script>
+    <script src="http://localhost:8009/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+  </head>
+  <body ng-app="space" ng-controller="gameCtrl">
+    <main role="main">
+      <section id="mainGame">
+        <h1>Spacebar Team</h1>
+        <h2 class="instruction" ng-class="{ flash: newInstruction }" ng-if="newInstruction">
+          {{ instruction }}
+        </h2>
+
+        <div class="controls game">
+          <div ng-switch="screen">
+            <div ng-switch-when="instructions" class="control" ng-repeat="control in level">
+              <form ng-switch="control.type">
+                <div ng-switch-when="toggle" class="toggle">
+                  <span class="title">{{ control.title }}</span>
+                  <div ng-repeat="option in control.options">
+                    <input type="radio" id="control{{$parent.$index}}{{$index}}" value="{{$index}}" name="control{{$parent.$index}}" ng-click="change(control.id, $index)">
+                    <label for="control{{$parent.$index}}{{$index}}">{{ option }}</label>
+                  </div>
+                </div>
+                <div ng-switch-when="button" class="button">
+                  <span class="title">{{ control.title }}</span>
+                  <input type="button" id="control{{$index}}" value="{{control.value}}" ng-click="change(control.id, 1)">
+                </div>
+              </form>
+            </div>
+            <div ng-switch-when="splash">
+              <input type="button" value="Next Level" ng-click="nextLevel()">
+            </div>
+            <div ng-switch-when="lose">
+              You have run out of time!
+            </div>
           </div>
         </div>
-        <div ng-switch-when="button" class="button">
-          <span class="title">{{ control.title }}</span>
-          <input type="button" id="control{{$index}}" value="{{control.value}}" ng-click="change(control.id, 1)">
-        </div>
-      </form>
-    </div>
-    <div ng-switch-when="splash">
-      <input type="button" value="Next Level" ng-click="nextLevel()">
-    </div>
-    <div ng-switch-when="lose">
-      You have run out of time!
-    </div>
-  </div>
-</div>
 
-<button ng-click="startNewGame()">New Game</button>
-</body>
+        <div class="controls options">
+          <span>{{ timeLeft }} Seconds</span>
+          <button class="button normal" ng-click="startNewGame()">New Game</button>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
 

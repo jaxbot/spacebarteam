@@ -41,5 +41,10 @@
     "type": "button",
     "title": "Day",
     "value": "To"
+  },
+  {
+    "type": "button",
+    "title": "Dong",
+    "value": "Expand"
   }
 ]

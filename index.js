@@ -2,18 +2,20 @@ var io = require('socket.io')(8009);
 var possibleControls = require('./controls');
 
 var correctInstructions;
+var countDown;
 var level;
 var levelControls;
 var players;
+var timeLeft;
 var timeout;
 var pendingInstructions = [];
 
 function initGame() {
-  clearTimeout(timeout);
-  timeout = setTimeout(lose, 30000);
+  clearInterval(countDown);
   correctInstructions = 0;
   level = 0;
   levelControls = shuffleArray(possibleControls);
+  timeLeft = 30;
 
   for (var i = 0; i < levelControls.length; i++) {
     levelControls[i].id = i;
@@ -63,6 +65,16 @@ function sendNewInstruction(socket) {
 
   socket.emit("instruction", instructionTxt);
   pendingInstructions.push(instruction);
+
+  // countDown = setInterval(function() {
+  //    timeLeft--;
+  //    io.emit("count", timeLeft);
+
+  //     if (timeLeft <= 0) {
+  //       lose();
+  //       return;
+  //     }
+  // }, 1000);
 }
 
 initGame();
@@ -99,6 +111,10 @@ io.on("connection", function(socket) {
     console.log("lost a client");
     players--;
   });
+  socket.on('reset', function (data) {
+    timeLeft = 1000;
+    io.emit('timer', timeLeft);
+  });
 });
 
 function getInstructions() {
@@ -118,6 +134,7 @@ function getInstructions() {
 }
 
 function lose() {
+  clearInterval(countDown);
   io.emit("lose", "");
 }
 

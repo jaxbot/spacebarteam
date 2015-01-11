@@ -1,33 +1,81 @@
+html {
+	height: 100%;
+
+	font-size: 16px;
+}
+
 body {
-	font-size: 30px;
+	height: 100%;
+
+	color: #fff;
+	font-size: 1.5rem;
+
 	background: #333;
-	color: #fff;
 }
 
-.control {
-	display: inline-block;
-	vertical-align: top;
-	padding: 20px;
-	text-align: center;
+main {
+	display: table;
+	height: 100%;
+	max-width: 50rem;
+	width: 100%;
 }
 
-.control input[type=button] {
-	display: block;
-	font-size: 40px;
-	position: relative;
-	margin: auto;
-	background: #dd1111;
-	color: #fff;
-	border: solid 1px #aa1111;
-}
-
-.control .toggle {
-	text-align: left;
+#mainGame {
+	display: table-cell;
+	padding: 1rem;
+	vertical-align: middle;
 }
 
 .controls {
-	background: #999;
+	padding: 1rem;
+	
 	color: #000;
+	text-align: center;
+
+	background: #999;
+	border-radius: 0.5rem;
+}
+
+.controls.game {
+	border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.controls.game .control {
+	display: inline-block;
+	margin-right: 1rem;
+	vertical-align: top;
+	padding: .5rem;
+
+	background: rgba(0, 0, 0, 0.15);
+	border-radius: 0.25rem;
+}
+
+.controls.game .control:last-of-type { margin-right: 0; }
+
+.controls.game .control input[type=button] {
+	display: block;
+	margin: auto;
+	padding: 4px 16px;
+
+	color: #fff;
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-shadow: 0 0.1rem 0 rgba(0,0,0,0.3);
+
+	background: #dd1111;
+	border: solid 1px #aa1111;
+	border-radius: 0.25rem;
+}
+
+.controls.game .control .toggle {
+	text-align: left;
+}
+
+.controls.options {
+	color: #fff;
+
+	background: #222;
+	border-radius: 0 0 0.5rem 0.5rem;
 }
 
 .flash {

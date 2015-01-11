@@ -30,6 +30,17 @@ function initGame() {
     players++;
   }
   sendInstructions();
+
+
+  countDown = setInterval(function() {
+     timeLeft--;
+     io.emit("count", timeLeft);
+
+      if (timeLeft <= 0) {
+        lose();
+        return;
+      }
+  }, 1000);
 }
 
 function sendInstructions() {
@@ -65,16 +76,6 @@ function sendNewInstruction(socket) {
 
   socket.emit("instruction", instructionTxt);
   pendingInstructions.push(instruction);
-
-  // countDown = setInterval(function() {
-  //    timeLeft--;
-  //    io.emit("count", timeLeft);
-
-  //     if (timeLeft <= 0) {
-  //       lose();
-  //       return;
-  //     }
-  // }, 1000);
 }
 
 initGame();
